@@ -35,7 +35,7 @@ from telegram.ext import (
 # =========================
 # CONFIG
 # =========================
-TOKEN = os.getenv("BOT_TOKEN", "").strip()  # обязательно выстави переменную окружения BOT_TOKEN
+TOKEN = os.getenv("8537624496:AAG8K3YcYlBw1GWT36Xuv_0TBS3aHRzzwAU", "").strip()  # обязательно выстави переменную окружения BOT_TOKEN
 DB_PATH = "db.db"
 
 # Супер-админ (может сбросить БД и назначать региональных админов)
