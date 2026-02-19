@@ -10,6 +10,10 @@
 #   set BOT_TOKEN=xxxxx   (Windows PowerShell: $env:BOT_TOKEN="xxxxx")
 #   python moviy_nafas_bot.py
 
+
+
+from telegram.constants import ParseMode
+
 import logging
 import os
 import sqlite3
@@ -22,6 +26,7 @@ from telegram import (
     ReplyKeyboardMarkup,
     KeyboardButton,
 )
+from telegram.constants import ParseMode
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -35,7 +40,8 @@ from telegram.ext import (
 # =========================
 # CONFIG
 # =========================
-TOKEN = os.getenv("8537624496:AAG8K3YcYlBw1GWT36Xuv_0TBS3aHRzzwAU", "").strip()  # обязательно выстави переменную окружения BOT_TOKEN
+
+TOKEN = os.getenv("8301193074:AAGUfZ8UlWiIgB2EFSU_kUIMMdMTDHXpRts", "").strip()  # обязательно выстави переменную окружения BOT_TOKEN
 DB_PATH = "db.db"
 
 # Супер-админ (может сбросить БД и назначать региональных админов)
@@ -848,7 +854,7 @@ async def trash_report_loc(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     context.user_data["tr_lat"] = float(update.message.location.latitude)
     context.user_data["tr_lon"] = float(update.message.location.longitude)
-    await update.message.reply_text(t(lang, "2) Теперь отправьте фото этого места.", "2) Endi shu joyning rasmini yuboring."),
+    application.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
     return TR_PHOTO
 
 
@@ -1294,7 +1300,7 @@ async def meetups_list(update: Update, context: ContextTypes.DEFAULT_TYPE):
         try:
             await update.message.reply_photo(photo=r["photo_file_id"], caption=text, parse_mode=ParseMode.HTML, reply_markup=kb)
         except Exception:
-            await update.message.reply_text(text, parse_mode=ParseMode.HTML, reply_markup=kb)
+            application.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
 
     conn.close()
 
@@ -1794,4 +1800,4 @@ if __name__ == "__main__":
     ensure_schema()
     application = build_app()
     logger.info("✅ Bot is starting…")
-    application.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
+application.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
